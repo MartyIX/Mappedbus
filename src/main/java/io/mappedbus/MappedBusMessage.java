@@ -27,7 +27,7 @@ public interface MappedBusMessage {
 	 * @param mem an instance of the memory mapped file
 	 * @param pos the start of the current record
 	 */
-	public void write(MemoryMappedFile mem, long pos);
+	void write(MemoryMappedFile mem, long pos);
 	
 	/**
 	 * Reads a message from the bus.
@@ -35,12 +35,12 @@ public interface MappedBusMessage {
 	 * @param mem an instance of the memory mapped file
 	 * @param pos the start of the current record
 	 */
-	public void read(MemoryMappedFile mem, long pos);
+	void read(MemoryMappedFile mem, long pos);
 	
 	/**
 	 * Returns the message type.
 	 *
 	 * @return the message type
 	 */
-	public int type();
+	int type();
 }

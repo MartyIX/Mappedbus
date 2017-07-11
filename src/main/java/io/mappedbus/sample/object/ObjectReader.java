@@ -16,8 +16,9 @@ public class ObjectReader {
 
 			PriceUpdate priceUpdate = new PriceUpdate();
 			
-			MappedBusMessage message = null;
+			MappedBusMessage message;
 
+			//noinspection InfiniteLoopStatement
 			while (true) {
 				if (reader.next()) {
 					boolean recovered = reader.hasRecovered();

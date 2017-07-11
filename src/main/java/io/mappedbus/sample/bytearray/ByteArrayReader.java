@@ -17,6 +17,7 @@ public class ByteArrayReader {
 
 			byte[] buffer = new byte[10];
 
+			//noinspection InfiniteLoopStatement
 			while (true) {
 				if (reader.next()) {
 					int length = reader.readBuffer(buffer, 0);
