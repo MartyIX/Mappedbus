@@ -1,5 +1,6 @@
 /* 
-* This class was inspired from an entry in Bryce Nyeggen's blog 
+* This class was inspired from an entry in Bryce Nyeggen's blog:
+* http://nyeggen.com/post/2014-05-18-memory-mapping-%3E2gb-of-data-in-java/
 */
 package io.mappedbus;
 import java.io.RandomAccessFile;
