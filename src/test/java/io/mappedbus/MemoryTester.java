@@ -51,6 +51,7 @@ public class MemoryTester {
 	}
 
 	public void runWriter() throws Exception {
+		//noinspection ResultOfMethodCallIgnored
 		new File(FILE_NAME).delete();
 		System.out.println("Waiting 3s, now start the reader");
 		Thread.sleep(3000);

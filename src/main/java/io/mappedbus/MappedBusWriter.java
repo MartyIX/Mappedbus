@@ -83,6 +83,7 @@ public class MappedBusWriter {
 	 */
 	public void open() throws IOException {
 		if (!append) {
+			//noinspection ResultOfMethodCallIgnored
 			new File(fileName).delete();
 		}
 		try {

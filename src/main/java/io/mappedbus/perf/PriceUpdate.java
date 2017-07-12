@@ -3,6 +3,7 @@ import io.mappedbus.MemoryMappedFile;
 import io.mappedbus.MappedBusMessage;
 
 
+@SuppressWarnings("unused")
 public class PriceUpdate implements MappedBusMessage {
 	
 	public static final int TYPE = 0;

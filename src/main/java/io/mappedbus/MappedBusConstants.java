@@ -55,6 +55,7 @@ class MappedBusConstants {
 	
 	static class Rollback {
 
+		@SuppressWarnings("unused")
 		public static final byte NotSet = 0;
 		
 		public static final byte Set = 1;

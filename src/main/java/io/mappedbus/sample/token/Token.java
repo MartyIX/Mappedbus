@@ -23,6 +23,7 @@ public class Token implements MappedBusMessage {
 		return TYPE;
 	}
 	
+	@SuppressWarnings("unused")
 	public int getFrom() {
 		return from;
 	}

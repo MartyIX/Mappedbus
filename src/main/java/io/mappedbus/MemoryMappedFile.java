@@ -81,6 +81,7 @@ public class MemoryMappedFile {
      * @param pos the position in the memory mapped file
      * @return the value read
      */
+    @SuppressWarnings("unused")
     public byte getByte(long pos) {
         return unsafe.getByte(pos + addr);
         //return unsafe.getByte(pos + addr);
@@ -112,6 +113,7 @@ public class MemoryMappedFile {
      * @param pos position in the memory mapped file
      * @return the value read
      */
+    @SuppressWarnings("unused")
     protected int getIntVolatile(long pos) {
         return unsafe.getIntVolatile(null, pos + addr);
     }
@@ -142,6 +144,7 @@ public class MemoryMappedFile {
      * @param pos the position in the memory mapped file
      * @param val the value to write
      */
+    @SuppressWarnings("unused")
     public void putByte(long pos, byte val) {
         unsafe.putByte(pos + addr, val);
     }
@@ -172,6 +175,7 @@ public class MemoryMappedFile {
      * @param pos the position in the memory mapped file
      * @param val the value to write
      */
+    @SuppressWarnings("SameParameterValue")
     protected void putIntVolatile(long pos, int val) {
         unsafe.putIntVolatile(null, pos + addr, val);
     }
@@ -220,10 +224,12 @@ public class MemoryMappedFile {
         unsafe.copyMemory(data, BYTE_ARRAY_OFFSET + offset, null, pos + addr, length);
     }
 
+    @SuppressWarnings("unused")
     protected boolean compareAndSwapInt(long pos, int expected, int value) {
         return unsafe.compareAndSwapInt(null, pos + addr, expected, value);
     }
 
+    @SuppressWarnings({"UnusedReturnValue", "SameParameterValue"})
     protected boolean compareAndSwapLong(long pos, long expected, long value) {
         return unsafe.compareAndSwapLong(null, pos + addr, expected, value);
     }

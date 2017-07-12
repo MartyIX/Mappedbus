@@ -16,7 +16,7 @@ public class MessageReader {
 
 			PriceUpdate priceUpdate = new PriceUpdate();
 
-			MappedBusMessage message = null;
+			MappedBusMessage message;
 
 			long start = System.nanoTime();
 			for (int i = 0; i < 80000000; i++) {
