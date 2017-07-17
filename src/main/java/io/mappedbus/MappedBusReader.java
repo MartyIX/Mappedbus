@@ -69,7 +69,7 @@ public class MappedBusReader {
 
 	private MemoryMappedFile mem;
 
-	private long limit = Structure.Data;
+	private long limit = Structure.DATA;
 
 	private long initialLimit;
 
@@ -105,7 +105,7 @@ public class MappedBusReader {
 		} catch(Exception e) {
 			throw new IOException("Unable to open the file: " + fileName, e);
 		}
-		initialLimit = mem.getLongVolatile(Structure.Limit);
+		initialLimit = mem.getLongVolatile(Structure.LIMIT);
 	}
 
 	/**
@@ -133,18 +133,18 @@ public class MappedBusReader {
 		if (limit >= fileSize) {
 			throw new EOFException("End of file was reached");
 		}
-		if (mem.getLongVolatile(Structure.Limit) <= limit) {
+		if (mem.getLongVolatile(Structure.LIMIT) <= limit) {
 			return false;
 		}
 		byte commit = mem.getByteVolatile(limit);
-		byte rollback = mem.getByteVolatile(limit + Length.Commit);
-		if (rollback == Rollback.Set) {
-			limit += Length.RecordHeader + recordSize;
+		byte rollback = mem.getByteVolatile(limit + Length.COMMIT);
+		if (rollback == Rollback.SET) {
+			limit += Length.RECORD_HEADER + recordSize;
 			timeoutCounter = 0;
 			timerStart = 0;
 			return false;
 		}
-		if (commit == Commit.Set) {
+		if (commit == Commit.SET) {
 			timeoutCounter = 0;
 			timerStart = 0;
 			return true;
@@ -155,8 +155,8 @@ public class MappedBusReader {
 				timerStart = System.currentTimeMillis();
 			} else {
 				if (System.currentTimeMillis() - timerStart >= maxTimeout) {
-					mem.putByteVolatile(limit + Length.Commit, Rollback.Set);
-					limit += Length.RecordHeader + recordSize;
+					mem.putByteVolatile(limit + Length.COMMIT, Rollback.SET);
+					limit += Length.RECORD_HEADER + recordSize;
 					timeoutCounter = 0;
 					timerStart = 0;
 					return false;
@@ -173,9 +173,9 @@ public class MappedBusReader {
 	 */
 	public int readType() {
 		typeRead = true;
-		limit += Length.StatusFlags;
+		limit += Length.STATUS_FLAGS;
 		int type = mem.getInt(limit);
-		limit += Length.Metadata;
+		limit += Length.METADATA;
 		return type;
 	}
 
@@ -203,9 +203,9 @@ public class MappedBusReader {
 	 * @return the length of the record that was read
 	 */
 	public int readBuffer(byte[] dst, int offset) {
-		limit += Length.StatusFlags;
+		limit += Length.STATUS_FLAGS;
 		int length = mem.getInt(limit);
-		limit += Length.Metadata;
+		limit += Length.METADATA;
 		mem.getBytes(limit, dst, offset, length);
 		limit += recordSize;
 		return length;

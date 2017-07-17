@@ -23,42 +23,42 @@ class MappedBusConstants {
 
 	static class Structure {
 		
-		public static final int Limit = 0;
+		public static final int LIMIT = 0;
 		
-		public static final int Data = Length.Limit;
+		public static final int DATA = Length.LIMIT;
 		
 	}
 
 	static class Length {
 		
-		public static final int Limit = 8;
+		public static final int LIMIT = 8;
 		
-		public static final int Commit = 1;
+		public static final int COMMIT = 1;
 		
-		public static final int Rollback = 1;
+		public static final int ROLLBACK = 1;
 		
-		public static final int Metadata = 4;
+		public static final int METADATA = 4;
 		
-		public static final int StatusFlags = Commit + Rollback;
+		public static final int STATUS_FLAGS = COMMIT + ROLLBACK;
 
-		public static final int RecordHeader = Commit + Rollback + Metadata;
+		public static final int RECORD_HEADER = COMMIT + ROLLBACK + METADATA;
 
 	}
 
 	static class Commit {
 		
-		public static final byte NotSet = 0;
+		public static final byte NOT_SET = 0;
 		
-		public static final byte Set = 1;
+		public static final byte SET = 1;
 		
 	}
 	
 	static class Rollback {
 
 		@SuppressWarnings("unused")
-		public static final byte NotSet = 0;
+		public static final byte NOT_SET = 0;
 		
-		public static final byte Set = 1;
+		public static final byte SET = 1;
 		
 	}
 }

@@ -36,7 +36,7 @@ public class MappedBusWriterTest {
 
     @Test(expected = EOFException.class)
     public void testWriteEOF() throws Exception {
-        int fileSize = Length.Limit + Length.RecordHeader + RECORD_SIZE - 4;
+        int fileSize = Length.LIMIT + Length.RECORD_HEADER + RECORD_SIZE - 4;
         MappedBusWriter writer = new MappedBusWriter(FILE_NAME, fileSize, RECORD_SIZE, false);
         writer.open();
         byte[] data = new byte[RECORD_SIZE];
@@ -45,7 +45,7 @@ public class MappedBusWriterTest {
 
     @Test(expected = EOFException.class)
     public void testWriteEOF2() throws Exception {
-        int fileSize = Length.Limit + Length.RecordHeader + (2 * RECORD_SIZE) - 4;
+        int fileSize = Length.LIMIT + Length.RECORD_HEADER + (2 * RECORD_SIZE) - 4;
         MappedBusWriter writer = new MappedBusWriter(FILE_NAME, fileSize, RECORD_SIZE, false);
         writer.open();
         byte[] data = new byte[RECORD_SIZE];
@@ -62,11 +62,11 @@ public class MappedBusWriterTest {
 
         byte[] data1 = {0, 1, 2, 3};
         writer.write(data1, 0, data1.length);
-        assertEquals(Structure.Data + Length.Commit + Length.Rollback + Length.Metadata + RECORD_SIZE, mem.getLongVolatile(Structure.Limit));
+        assertEquals(Structure.DATA + Length.COMMIT + Length.ROLLBACK + Length.METADATA + RECORD_SIZE, mem.getLongVolatile(Structure.LIMIT));
 
         byte[] data2 = {4, 5, 6};
         writer.write(data2, 0, data2.length);
-        assertEquals(Structure.Data + 2 * (Length.Commit + Length.Rollback + Length.Metadata + RECORD_SIZE), mem.getLongVolatile(Structure.Limit));
+        assertEquals(Structure.DATA + 2 * (Length.COMMIT + Length.ROLLBACK + Length.METADATA + RECORD_SIZE), mem.getLongVolatile(Structure.LIMIT));
     }
 
     @Test
@@ -78,10 +78,10 @@ public class MappedBusWriterTest {
 
         PriceUpdate priceUpdate = new PriceUpdate();
         writer.write(priceUpdate);
-        assertEquals(Structure.Data + Length.Commit + Length.Rollback + Length.Metadata + RECORD_SIZE, mem.getLongVolatile(Structure.Limit));
+        assertEquals(Structure.DATA + Length.COMMIT + Length.ROLLBACK + Length.METADATA + RECORD_SIZE, mem.getLongVolatile(Structure.LIMIT));
 
         writer.write(priceUpdate);
-        assertEquals(Structure.Data + 2 * (Length.Commit + Length.Rollback + Length.Metadata + RECORD_SIZE), mem.getLongVolatile(Structure.Limit));
+        assertEquals(Structure.DATA + 2 * (Length.COMMIT + Length.ROLLBACK + Length.METADATA + RECORD_SIZE), mem.getLongVolatile(Structure.LIMIT));
     }
 
     @SuppressWarnings("unused")

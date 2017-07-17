@@ -45,7 +45,7 @@ public class MappedBusReaderTest {
 
     @Test(expected = EOFException.class)
     public void testReadEOF() throws Exception {
-        int fileSize = Length.Limit + Length.RecordHeader + RECORD_SIZE;
+        int fileSize = Length.LIMIT + Length.RECORD_HEADER + RECORD_SIZE;
         MappedBusWriter writer = new MappedBusWriter(FILE_NAME, fileSize, RECORD_SIZE, false);
         writer.open();
         MappedBusReader reader = new MappedBusReader(FILE_NAME, fileSize, RECORD_SIZE);
@@ -137,7 +137,7 @@ public class MappedBusReaderTest {
 
         // set commit flag to false for the first record
         MemoryMappedFile mem = new MemoryMappedFile(FILE_NAME, FILE_SIZE);
-        mem.putIntVolatile(Structure.Data, 0);
+        mem.putIntVolatile(Structure.DATA, 0);
 
         MappedBusReader reader = new MappedBusReader(FILE_NAME, FILE_SIZE, RECORD_SIZE);
         reader.setTimeout(0);
@@ -192,7 +192,7 @@ public class MappedBusReaderTest {
 
         // set commit flag to false for the first record
         MemoryMappedFile mem = new MemoryMappedFile(FILE_NAME, FILE_SIZE);
-        mem.putByteVolatile(Structure.Data, Commit.NotSet);
+        mem.putByteVolatile(Structure.DATA, Commit.NOT_SET);
 
         MappedBusReader reader = new MappedBusReader(FILE_NAME, FILE_SIZE, RECORD_SIZE);
         reader.setTimeout(0);
@@ -207,7 +207,7 @@ public class MappedBusReaderTest {
         assertEquals(0, reader.timerStart);
 
         // another reader sets the rollback flag
-        mem.putByteVolatile(Structure.Data + Length.Commit, Rollback.Set);
+        mem.putByteVolatile(Structure.DATA + Length.COMMIT, Rollback.SET);
 
         // the reader skips the record
         assertEquals(false, reader.next());

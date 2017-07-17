@@ -72,7 +72,7 @@ public class MappedBusWriter {
 	public MappedBusWriter(String fileName, long fileSize, int recordSize, boolean append) {
 		this.fileName = fileName;
 		this.fileSize = fileSize;
-		this.entrySize = recordSize + Length.RecordHeader;
+		this.entrySize = recordSize + Length.RECORD_HEADER;
 		this.append = append;
 	}
 	
@@ -92,9 +92,9 @@ public class MappedBusWriter {
 			throw new IOException("Unable to open the file: " + fileName, e);
 		}
 		if (append) {
-			mem.compareAndSwapLong(Structure.Limit, 0, Structure.Data);
+			mem.compareAndSwapLong(Structure.LIMIT, 0, Structure.DATA);
 		} else {
-			mem.putLongVolatile(Structure.Limit, Structure.Data);
+			mem.putLongVolatile(Structure.LIMIT, Structure.DATA);
 		}
 	}
 
@@ -107,9 +107,9 @@ public class MappedBusWriter {
 	public void write(MappedBusMessage message) throws EOFException {
 		long limit = allocate();
 		long commitPos = limit;
-		limit += Length.StatusFlags;
+		limit += Length.STATUS_FLAGS;
 		mem.putInt(limit, message.type());
-		limit += Length.Metadata;
+		limit += Length.METADATA;
 		message.write(mem, limit);
 		commit(commitPos);
 	}
@@ -125,15 +125,15 @@ public class MappedBusWriter {
 	public void write(byte[] src, int offset, int length) throws EOFException {
 		long limit = allocate();
 		long commitPos = limit;
-		limit += Length.StatusFlags;
+		limit += Length.STATUS_FLAGS;
 		mem.putInt(limit, length);
-		limit += Length.Metadata;
+		limit += Length.METADATA;
 		mem.setBytes(limit, src, offset, length);
 		commit(commitPos);		
 	}
 	
 	private long allocate() throws EOFException {
-		long limit = mem.getAndAddLong(Structure.Limit, entrySize);
+		long limit = mem.getAndAddLong(Structure.LIMIT, entrySize);
 		if (limit + entrySize > fileSize) {
 			throw new EOFException("End of file was reached");
 		}
@@ -141,7 +141,7 @@ public class MappedBusWriter {
 	}
 
 	private void commit(long commitPos) {
-		mem.putByteVolatile(commitPos, Commit.Set);
+		mem.putByteVolatile(commitPos, Commit.SET);
 	}
 	
 	/**
