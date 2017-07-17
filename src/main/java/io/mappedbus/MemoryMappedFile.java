@@ -108,6 +108,16 @@ public class MemoryMappedFile {
     }
 
     /**
+     * Reads a char from the specified position.
+     *
+     * @param pos the position in the memory mapped file
+     * @return the value read
+     */
+    public char getChar(long pos) {
+        return unsafe.getChar(pos + addr);
+    }
+
+    /**
      * Reads an int (volatile) from the specified position.
      *
      * @param pos position in the memory mapped file
@@ -167,6 +177,16 @@ public class MemoryMappedFile {
      */
     public void putInt(long pos, int val) {
         unsafe.putInt(pos + addr, val);
+    }
+
+    /**
+     * Writes a char to the specified position.
+     *
+     * @param pos the position in the memory mapped file
+     * @param val the value to write
+     */
+    public void putChar(long pos, char val) {
+        unsafe.putChar(pos + addr, val);
     }
 
     /**
