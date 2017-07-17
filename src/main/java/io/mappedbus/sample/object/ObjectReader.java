@@ -11,7 +11,7 @@ public class ObjectReader {
 
 	public void run() {
 		try {
-			MappedBusReader reader = new MappedBusReader("/tmp/test-message", 2000000L, 12);
+			MappedBusReader reader = new MappedBusReader("/tmp/test-message", 2000000L, 14);
 			reader.open();
 
 			PriceUpdate priceUpdate = new PriceUpdate();
